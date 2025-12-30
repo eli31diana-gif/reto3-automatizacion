@@ -32,7 +32,14 @@ jobs:
 
       # 5️⃣ Ejecutar los tests de Cucumber
       - name: Run Cucumber tests
-        run: npx cucumber-js --format json:cucumber-report.json
+        run: |
+           npx cucumber-js \
+           --format json:cucumber-report.json \
+           --publish-quiet
+           
+      - name: Check generated files
+        run: ls -la
+
 
       # 6️⃣ Generar reporte HTML
       - name: Generate HTML report
