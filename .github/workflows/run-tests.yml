@@ -33,8 +33,8 @@ jobs:
       run: npx cucumber-html-reporter --input cucumber-report.json --output cucumber-report.html || echo "No report"
 
     - name: Subir reporte como artefacto
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: reporte-tests
-        path: cucumber-report.html
+        path: cucumber-report.html  
 
