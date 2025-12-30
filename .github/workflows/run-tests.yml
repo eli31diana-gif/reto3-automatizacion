@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Configurar Node.js 20
+      # 2️⃣ Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 24
           cache: "npm"
 
       # 3️⃣ Instalar dependencias
@@ -36,7 +36,7 @@ jobs:
 
       # 6️⃣ Generar reporte HTML
       - name: Generate HTML report
-        run: npx cucumber-html-reporter --input cucumber-report.json --output cucumber-report.html --theme bootstrap
+        run: node generate-report.js
 
       # 7️⃣ Subir el reporte HTML como artifact
       - name: Upload HTML report
