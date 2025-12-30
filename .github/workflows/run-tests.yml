@@ -1,0 +1,40 @@
+name: Ejecutar tests SauceDemo
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repositorio
+      uses: actions/checkout@v3
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Instalar dependencias
+      run: npm install
+
+    - name: Instalar navegadores Playwright
+      run: npx playwright install --with-deps
+
+    - name: Ejecutar tests Cucumber
+      run: npx cucumber-js --format json:cucumber-report.json
+
+    - name: Generar reporte HTML
+      run: npx cucumber-html-reporter --input cucumber-report.json --output cucumber-report.html || echo "No report"
+
+    - name: Subir reporte como artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: reporte-tests
+        path: cucumber-report.html
+
